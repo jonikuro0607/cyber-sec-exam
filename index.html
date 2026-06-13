@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow">
+<title>情報・サイバーセキュリティ管理士 認定試験 対策サイト</title>
+<style>
+:root{
+  --bg:#0e1726; --panel:#16233a; --panel2:#1d2d49; --line:#2a3c5c;
+  --text:#e8eef7; --muted:#9fb1cc; --accent:#3ea6ff; --accent2:#36d399;
+  --warn:#fbbf24; --danger:#f87171; --ok:#34d399;
+  --catI:#60a5fa; --catII:#f59e0b; --catIII:#a78bfa; --catIV:#34d399;
+  --radius:14px; --shadow:0 6px 24px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;
+  background:radial-gradient(1200px 600px at 70% -10%,#1b2c4a 0%,var(--bg) 55%);
+  color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent)}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px 80px}
+header.hero{
+  text-align:center;padding:46px 18px 26px;
+}
+.badge{display:inline-block;font-size:12px;letter-spacing:.08em;color:var(--accent2);
+  border:1px solid var(--line);border-radius:999px;padding:5px 14px;margin-bottom:14px;background:rgba(54,211,153,.08)}
+h1{font-size:clamp(22px,5vw,34px);margin:6px 0 8px;line-height:1.35}
+.hero p{color:var(--muted);margin:6px 0 0;font-size:15px}
+.revflag{display:inline-block;margin-top:16px;background:linear-gradient(90deg,#1f3a5f,#2b4d7a);
+  border:1px solid var(--accent);border-radius:12px;padding:10px 16px;font-size:13px;color:#dbe9ff}
+
+/* tabs */
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(14,23,38,.86);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);display:flex;gap:6px;justify-content:center;padding:10px;flex-wrap:wrap}
+nav.tabs button{
+  background:transparent;color:var(--muted);border:1px solid transparent;border-radius:10px;
+  padding:9px 16px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
+nav.tabs button:hover{color:var(--text)}
+nav.tabs button.active{color:#fff;background:var(--panel2);border-color:var(--line)}
+
+.view{display:none;animation:fade .3s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+section.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 22px;margin:18px 0;box-shadow:var(--shadow)}
+section.card h2{font-size:19px;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+section.card h2 .dot{width:10px;height:10px;border-radius:3px;background:var(--accent)}
+h3{font-size:15px;margin:18px 0 6px;color:#cfe0f7}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px}
+.stat .k{font-size:12px;color:var(--muted)}
+.stat .v{font-size:18px;font-weight:700;margin-top:3px}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left}
+th{background:var(--panel2);color:#cfe0f7;font-weight:600}
+td.center,th.center{text-align:center}
+
+.tag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:999px;font-weight:700}
+.tagI{background:rgba(96,165,250,.16);color:var(--catI);border:1px solid rgba(96,165,250,.4)}
+.tagII{background:rgba(245,158,11,.16);color:var(--catII);border:1px solid rgba(245,158,11,.4)}
+.tagIII{background:rgba(167,139,250,.16);color:var(--catIII);border:1px solid rgba(167,139,250,.4)}
+.tagIV{background:rgba(52,211,153,.16);color:var(--catIV);border:1px solid rgba(52,211,153,.4)}
+
+ul.clean{margin:6px 0;padding-left:20px}
+ul.clean li{margin:3px 0}
+.kw{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.kw span{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:12.5px;color:#d7e4f7}
+
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+.callout{border-left:3px solid var(--accent);background:rgba(62,166,255,.07);padding:10px 14px;border-radius:8px;margin:12px 0;font-size:14px}
+
+/* quiz */
+.quizbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filters button{background:var(--panel2);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:7px 14px;font-size:13px;cursor:pointer;font-weight:600}
+.filters button.active{color:#fff;border-color:var(--accent);background:rgba(62,166,255,.18)}
+.progress{height:8px;background:var(--panel2);border-radius:999px;overflow:hidden;margin:14px 0}
+.progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.3s}
+.scorebox{font-size:13px;color:var(--muted)}
+.scorebox b{color:var(--text);font-size:15px}
+
+.q{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:16px 0;box-shadow:var(--shadow)}
+.q .meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);margin-bottom:10px}
+.q .qtext{font-size:16px;font-weight:600;margin:4px 0 14px;white-space:pre-wrap}
+.choices{display:flex;flex-direction:column;gap:9px}
+.choice{display:flex;gap:11px;align-items:flex-start;background:var(--panel2);border:1.5px solid var(--line);
+  border-radius:11px;padding:12px 14px;cursor:pointer;transition:.12s;font-size:14.5px}
+.choice:hover{border-color:var(--accent)}
+.choice .mark{flex:0 0 24px;height:24px;border-radius:6px;background:#0e1726;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--muted)}
+.choice.correct{border-color:var(--ok);background:rgba(52,211,153,.12)}
+.choice.correct .mark{background:var(--ok);color:#06281c;border-color:var(--ok)}
+.choice.wrong{border-color:var(--danger);background:rgba(248,113,113,.1)}
+.choice.wrong .mark{background:var(--danger);color:#3a0b0b;border-color:var(--danger)}
+.choice.disabled{cursor:default}
+.explain{margin-top:13px;border-top:1px dashed var(--line);padding-top:12px;font-size:13.5px;color:#d3e1f5;display:none}
+.explain.show{display:block}
+.explain .verdict{font-weight:700;margin-bottom:5px}
+.explain .verdict.ok{color:var(--ok)}
+.explain .verdict.ng{color:var(--danger)}
+.explain .src{margin-top:9px;font-size:12px;color:#8fb0d8;background:rgba(62,166,255,.08);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+
+.controls{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.btn{background:var(--accent);color:#062138;border:none;border-radius:10px;padding:11px 20px;font-size:14px;
+  font-weight:700;cursor:pointer;transition:.15s}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+.result{text-align:center;padding:30px 20px}
+.result .pct{font-size:52px;font-weight:800;line-height:1}
+.result .judge{font-size:18px;font-weight:700;margin-top:8px}
+.result .judge.pass{color:var(--ok)}
+.result .judge.fail{color:var(--warn)}
+
+footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 18px;border-top:1px solid var(--line);margin-top:30px}
+.disclaimer{font-size:11.5px;color:#7e90ac;max-width:720px;margin:8px auto 0}
+@media(max-width:560px){
+  section.card{padding:18px 15px}
+  .q{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge">2026年2月度 名称改訂 対応版</div>
+  <h1>情報・サイバーセキュリティ<br>管理士 認定試験 対策サイト</h1>
+  <p>全日本情報学習振興協会／試験概要カタログ ＋ オリジナル演習問題集</p>
+  <div class="revflag">📢 2026年2月度より「情報セキュリティ管理士認定試験」→「<b>情報・サイバーセキュリティ管理士認定試験</b>」へ名称変更。サイバー攻撃手法・クラウド・インシデント対応などの分野が追加されました。</div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-view="catalog">📘 試験カタログ</button>
+  <button class="tab" data-view="quiz">📝 問題集を解く</button>
+  <button class="tab" data-view="study">💡 学習のコツ</button>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ CATALOG ============ -->
+<div class="view active" id="catalog">
+
+  <section class="card">
+    <h2><span class="dot"></span>試験のキホン（管理士レベル）</h2>
+    <div class="grid">
+      <div class="stat"><div class="k">出題形式</div><div class="v">マークシート 四択</div></div>
+      <div class="stat"><div class="k">問題数</div><div class="v">180問</div></div>
+      <div class="stat"><div class="k">試験時間</div><div class="v">120分</div></div>
+      <div class="stat"><div class="k">合格基準</div><div class="v">正答率 70%以上 ※</div></div>
+      <div class="stat"><div class="k">受験料（一般）</div><div class="v">11,000円</div></div>
+      <div class="stat"><div class="k">受験料（学割）</div><div class="v">8,800円</div></div>
+      <div class="stat"><div class="k">合格率（目安）</div><div class="v">約 42〜50%</div></div>
+      <div class="stat"><div class="k">受験資格</div><div class="v">制限なし（誰でも可）</div></div>
+    </div>
+    <p class="note">※ 問題の難易度により調整され、70%以下でも合格となる場合があります。</p>
+    <div class="callout">弟さんが受けるなら <b>「管理士」レベル</b> ですね。基礎の「初級」（80問／60分）の上位区分で、管理職・リーダーとして必要な実務・法律知識まで踏み込んで問われます。</div>
+  </section>
+
+  <section class="card">
+    <h2><span class="dot"></span>2026年度 試験日程</h2>
+    <table>
+      <tr><th>回</th><th>試験日</th><th class="center">区分</th></tr>
+      <tr><td>第61回</td><td>令和8年（2026年）5月24日（日）</td><td class="center">管理士・初級</td></tr>
+      <tr><td>第62回</td><td>令和8年（2026年）8月30日（日）</td><td class="center">管理士・初級</td></tr>
+      <tr><td>第63回</td><td>令和8年（2026年）11月29日（日）</td><td class="center">管理士・初級</td></tr>
+      <tr><td>第64回</td><td>令和9年（2027年）2月21日（日）</td><td class="center">管理士・初級</td></tr>
+    </table>
+    <p class="note">管理士は 10:00〜12:15。会場受験のほか、協会の最新案内で申込開始日・締切を必ず確認してください（例：第61回は1月申込開始・4月中旬締切）。</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="dot"></span>出題範囲（4つの課題）</h2>
+
+    <h3><span class="tag tagI">課題Ⅰ</span> 情報セキュリティ総論</h3>
+    <ul class="clean">
+      <li>情報資産の保護、機密性・完全性・可用性（CIA）と情報セキュリティ7要素</li>
+      <li>リスクマネジメント（リスクアセスメント／リスク対応の4分類）</li>
+      <li>ISMS（ISO/IEC 27001）、PDCA、情報セキュリティポリシー、内部統制</li>
+      <li>関連法令：個人情報保護法・マイナンバー法・不正アクセス禁止法・不正競争防止法・サイバーセキュリティ基本法 など</li>
+    </ul>
+    <div class="kw"><span>CIA</span><span>真正性/責任追跡性</span><span>リスクアセスメント</span><span>ISMS</span><span>Pマーク</span><span>個人情報保護法</span><span>不正アクセス禁止法</span></div>
+
+    <h3><span class="tag tagII">課題Ⅱ</span> 脅威と情報セキュリティ対策</h3>
+    <ul class="clean">
+      <li>マルウェア・ソーシャルエンジニアリングなどの脅威</li>
+      <li>人的対策（従業員監督・教育）、SNSのリスク、BYOD・モバイル機器管理</li>
+      <li>物理的セキュリティ（入退室管理・UPS・トラッシング対策）</li>
+      <li>事業継続（BCP/BCM）、バックアップ、冗長化（フォールトトレラント等）</li>
+    </ul>
+    <div class="kw"><span>標的型攻撃</span><span>ソーシャルエンジニアリング</span><span>BYOD/MDM</span><span>入退室管理</span><span>UPS</span><span>BCP</span><span>冗長化</span></div>
+
+    <h3><span class="tag tagIII">課題Ⅲ</span> サイバーセキュリティ対策 <span style="font-size:11px;color:var(--accent2)">★2026強化分野</span></h3>
+    <ul class="clean">
+      <li>認証（多要素認証・生体認証・シングルサインオン）</li>
+      <li>暗号技術（共通鍵／公開鍵／ハイブリッド／ECC／ハッシュ／電子署名／PKI）</li>
+      <li>サイバー攻撃の手法（DoS/DDoS・SQLインジェクション・XSS・ランサムウェア・サプライチェーン・ゼロデイ）</li>
+      <li>Webセキュリティ・ネットワーク防御（FW／IDS/IPS／WAF／VPN／TLS）</li>
+      <li>クラウド／API／IoT／モバイルのセキュリティ</li>
+      <li>ログ管理・インシデント対応・デジタルフォレンジック</li>
+    </ul>
+    <div class="kw"><span>多要素認証</span><span>公開鍵暗号</span><span>電子署名/PKI</span><span>DDoS</span><span>SQLi/XSS</span><span>ランサムウェア</span><span>WAF/IDS/IPS</span><span>クラウド/API</span><span>フォレンジック</span></div>
+
+    <h3><span class="tag tagIV">課題Ⅳ</span> コンピュータの一般知識</h3>
+    <ul class="clean">
+      <li>OS・ハードウェア・ネットワーク・データベースの基礎、各種ファイル形式や近距離無線（NFC）などのIT基礎知識</li>
+    </ul>
+    <p class="note">※ 課題Ⅳは初級で特に問われる領域。管理士でもIT基礎は前提知識として押さえておくと安心です。</p>
+
+    <div class="callout">🆕 <b>2026年2月度の追加項目</b>：サイバーセキュリティ総論／サイバー攻撃の種類と手法／Webセキュリティとネットワーク防御技術／クラウド・モバイル・IoTのセキュリティ／インシデント対応とフォレンジック。<b>右上の「問題集を解く」で重点的に演習できます。</b></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="dot"></span>公式情報リンク</h2>
+    <ul class="clean">
+      <li>試験内容・日程（管理士）：<a href="https://www.joho-gakushu.or.jp/isme/naiyou.php" target="_blank" rel="noopener">joho-gakushu.or.jp/isme/naiyou.php</a></li>
+      <li>初級試験トップ：<a href="https://www.joho-gakushu.or.jp/isf/" target="_blank" rel="noopener">joho-gakushu.or.jp/isf/</a></li>
+      <li>公式サンプル問題：<a href="https://www.joho-gakushu.or.jp/isme/questions.php" target="_blank" rel="noopener">joho-gakushu.or.jp/isme/questions.php</a></li>
+    </ul>
+    <p class="note">受験料・日程・申込締切は変更される場合があります。申込前に必ず公式サイトで最新情報をご確認ください。</p>
+  </section>
+</div>
+
+<!-- ============ QUIZ ============ -->
+<div class="view" id="quiz">
+  <section class="card">
+    <div class="quizbar">
+      <div class="filters" id="filters">
+        <button class="active" data-cat="all">すべて</button>
+        <button data-cat="I">課題Ⅰ 総論</button>
+        <button data-cat="II">課題Ⅱ 脅威・対策</button>
+        <button data-cat="III">課題Ⅲ サイバー</button>
+      </div>
+      <div class="scorebox">正解 <b id="scoreNum">0</b> / <span id="answeredNum">0</span>（全 <span id="totalNum">0</span>問）</div>
+    </div>
+    <div class="progress"><i id="bar"></i></div>
+    <p class="note">本番形式の四択演習です。選択肢をタップすると即座に正誤と解説が表示されます。※ ここに収録した問題は出題範囲に基づく<b>オリジナル問題</b>で、公式試験問題そのものではありません。</p>
+  </section>
+
+  <div id="quizArea"></div>
+
+  <div class="controls">
+    <button class="btn ghost" id="prevBtn">← 前へ</button>
+    <button class="btn" id="nextBtn">次へ →</button>
+  </div>
+
+  <section class="card result" id="resultCard" style="display:none">
+    <div class="pct" id="resultPct">0%</div>
+    <div class="judge" id="resultJudge">—</div>
+    <p class="note" id="resultMsg"></p>
+    <button class="btn" id="restartBtn" style="margin-top:12px">もう一度挑戦する</button>
+  </section>
+</div>
+
+<!-- ============ STUDY ============ -->
+<div class="view" id="study">
+  <section class="card">
+    <h2><span class="dot"></span>合格への学習のコツ</h2>
+    <h3>① まず「用語の正確な区別」を固める</h3>
+    <p>この試験は「最も適切／最も不適切なものを選べ」形式が中心。似た用語（例：フォールトトレラント／フェイルセーフ／フォールトマスキング、共通鍵／公開鍵）を<b>違いで覚える</b>のが得点源です。</p>
+    <h3>② 法律は「何を禁止／義務づけているか」で押さえる</h3>
+    <p>不正アクセス禁止法・個人情報保護法・不正競争防止法・サイバーセキュリティ基本法。条文暗記より「対象・行為・例外」を整理。</p>
+    <h3>③ 2026追加のサイバー分野を厚めに</h3>
+    <p>攻撃手法（ランサムウェア・標的型・サプライチェーン・ゼロデイ）と防御技術（WAF/IDS/IPS/多要素認証/暗号）はセットで。インシデント対応の流れ（検知→封じ込め→根絶→復旧→事後）も頻出。</p>
+    <h3>④ 70%ラインを意識した反復</h3>
+    <p>180問・120分なので1問40秒ペース。迷う問題は飛ばし、確実な問題を落とさない練習を。左の問題集を課題別に何周も回しましょう。</p>
+    <div class="callout">💪 弟さんへ：まずは「課題Ⅲ サイバー」で知らない用語をあぶり出し → カタログのキーワードで補強 → 全問演習で仕上げ、の順がおすすめです。</div>
+  </section>
+
+  <section class="card">
+    <h2><span class="dot"></span>📚 演習問題の出典・根拠について</h2>
+    <p>収録した40問は、実際の試験問題の流用ではなく、出題範囲に沿って作成した<b>オリジナル問題</b>です。正解・解説の根拠は、各問題の解答後に表示される「📚 根拠」欄のとおり、以下のような<b>権威ある一次情報</b>に基づいています。各根拠で示した機関・規格名を検索すれば、ご自身でも内容を確認できます。</p>
+    <ul class="clean">
+      <li><b>法令</b>：個人情報保護法・不正アクセス禁止法・不正競争防止法・電子署名法（条文は e-Gov 法令検索で確認可）</li>
+      <li><b>JIS規格</b>：JIS Q 27000/27001（ISMS）、JIS Q 31000（リスク）、JIS Q 15001（Pマーク）</li>
+      <li><b>IPA（情報処理推進機構）</b>：「安全なウェブサイトの作り方」「WAF読本」「情報セキュリティ10大脅威」等の公開資料</li>
+      <li><b>公的ガイドライン</b>：総務省・経産省（IoT/テレワーク）、内閣府（事業継続）、警察庁・JPCERT/CC</li>
+      <li><b>国際標準</b>：NIST SP 800-61（インシデント対応）・SP 800-63（認証）等</li>
+    </ul>
+    <div class="callout">⚠️ 知識内容は標準的な定義に沿って検証済みですが、本番の正答・配点を保証するものではありません。特に「アンチパスバック」のように<b>実装や出題者により解釈に幅がある用語</b>もあります（該当問題の根拠欄に注記あり）。最終判断は公式テキスト・公式サンプル問題でご確認ください。</div>
+  </section>
+</div>
+
+</div>
+
+<footer>
+  情報・サイバーセキュリティ管理士 認定試験 対策サイト（非公式・学習用）<br>
+  <div class="disclaimer">本サイトは学習支援を目的に作成した非公式コンテンツです。試験名称・出題範囲・日程・料金等は2026年時点の公開情報を基にしていますが、正確性・最新性を保証しません。掲載の演習問題は出題範囲に基づくオリジナル問題であり、実際の試験問題とは異なります。受験の際は必ず全日本情報学習振興協会の公式情報をご確認ください。</div>
+</footer>
+
+<script>
+/* ========== 問題バンク（オリジナル演習問題） ========== */
+const QUESTIONS = [
+ // ---- 課題I 情報セキュリティ総論 ----
+ {cat:"I",topic:"CIA・7要素",q:"情報セキュリティの基本3要素のうち「完全性（Integrity）」を保つための対策として最も適切なものはどれか。",
+  c:["アクセスログを暗号化して第三者に読まれないようにする","データに電子署名やハッシュ値を付け、改ざんを検知できるようにする","サーバを冗長化して停止時間を最小化する","通信経路をVPNで秘匿する"],a:1,
+  e:"完全性は「情報が改ざん・破壊されず正確である」性質。改ざん検知のためのハッシュ値・電子署名が代表的対策。ア・エは機密性、ウは可用性の対策。",s:"JIS Q 27000（情報セキュリティ用語）／IPA 情報セキュリティ基礎用語"},
+ {cat:"I",topic:"7要素",q:"情報セキュリティの追加4要素のうち「責任追跡性（Accountability）」の説明として最も適切なものはどれか。",
+  c:["利用者が確かに本人であることを確認できること","操作や事象を後から追跡し、誰が行ったか特定できること","システムが意図通り確実に動作すること","情報が必要なときに利用できること"],a:1,
+  e:"責任追跡性は行為を主体に結び付け追跡できる性質で、ログ取得が要。アは真正性、ウは信頼性、エは可用性。",s:"JIS Q 27000（真正性・責任追跡性・信頼性の定義）"},
+ {cat:"I",topic:"リスク対応",q:"リスク対応の4分類のうち「リスク移転（共有）」に該当するものはどれか。",
+  c:["重要度の低いリスクを許容し受け入れる","サイバー保険に加入して損害を補填できるようにする","対策を講じて発生確率や影響を下げる","リスクの高い事業から撤退する"],a:1,
+  e:"リスク移転は保険やアウトソースで他者と分担すること。アは受容、ウは低減、エは回避。",s:"JIS Q 31000（リスクマネジメント）／JIS Q 27001 リスク対応"},
+ {cat:"I",topic:"リスクアセスメント",q:"リスクアセスメントの一般的な手順として最も適切な並びはどれか。",
+  c:["リスク対応 → リスク特定 → リスク分析 → リスク評価","リスク特定 → リスク分析 → リスク評価（→ リスク対応）","リスク評価 → リスク分析 → リスク特定 → リスク対応","リスク分析 → リスク評価 → リスク特定 → リスク対応"],a:1,
+  e:"リスクアセスメントは『特定→分析→評価』。その結果を受けてリスク対応を行う。",s:"JIS Q 31000／JIS Q 27001（リスクアセスメントの定義）"},
+ {cat:"I",topic:"ISMS",q:"ISMS（ISO/IEC 27001）に関する記述として最も不適切なものはどれか。",
+  c:["PDCAサイクルにより継続的改善を図る","リスクアセスメントに基づき管理策を選択する","一度認証を取得すれば更新審査は不要である","経営層の関与（リーダーシップ）が求められる"],a:2,
+  e:"ISMS認証は定期的なサーベイランス審査・更新審査が必要で、取りっぱなしにはできない。よってウが不適切。",s:"JIS Q 27001（ISMS要求事項）／ISMS-AC 認証維持制度"},
+ {cat:"I",topic:"不正アクセス禁止法",q:"不正アクセス禁止法で禁止されている行為として該当しないものはどれか。",
+  c:["他人のID・パスワードを無断で入力してログインする","セキュリティホールを突いて認証を回避し侵入する","正当に取得した自分のアカウントで自社システムにログインする","他人のパスワードを業務外で第三者に提供（助長行為）する"],a:2,
+  e:"自分の正当なアカウント利用は違反ではない。なりすまし・セキュリティホール攻撃・他人ID提供（助長行為）が禁止対象。",s:"不正アクセス禁止法 第3条（禁止行為）・第5条（助長行為の禁止）"},
+ {cat:"I",topic:"個人情報保護法",q:"個人情報保護法における「要配慮個人情報」に該当するものはどれか。",
+  c:["氏名と勤務先電話番号","購入履歴とポイント残高","人種・信条・病歴・犯罪歴など","メールアドレスとニックネーム"],a:2,
+  e:"要配慮個人情報は本人差別・偏見につながり得る情報（人種・信条・社会的身分・病歴・犯罪歴等）で、取得には原則本人同意が必要。",s:"個人情報保護法 第2条第3項（要配慮個人情報の定義）"},
+ {cat:"I",topic:"不正競争防止法",q:"不正競争防止法上の「営業秘密」として保護されるための3要件に含まれないものはどれか。",
+  c:["秘密管理性（秘密として管理されている）","有用性（事業活動に有用な技術・営業情報）","公知性（広く一般に公開されている）","非公知性（公然と知られていない）"],a:2,
+  e:"営業秘密の3要件は秘密管理性・有用性・非公知性。公知（公開済み）は逆に保護対象外。",s:"不正競争防止法 第2条第6項（営業秘密の定義）／経産省 営業秘密管理指針"},
+ {cat:"I",topic:"プライバシーマーク",q:"プライバシーマーク（Pマーク）制度に関する説明として最も適切なものはどれか。",
+  c:["情報セキュリティ全般のマネジメント体制を認証する制度","個人情報の適切な取扱い体制を評価・認証する制度","製品の暗号強度を国が認証する制度","Webサイトのサーバ証明書を発行する制度"],a:1,
+  e:"PマークはJIS Q 15001に基づき個人情報保護体制を認証。組織全体のISMSとは別物。サーバ証明書はSSL/TLS証明書の話。",s:"JIS Q 15001／JIPDEC プライバシーマーク制度"},
+
+ // ---- 課題II 脅威と情報セキュリティ対策 ----
+ {cat:"II",topic:"ソーシャルエンジニアリング",q:"ソーシャルエンジニアリングに分類される手口として最も適切なものはどれか。",
+  c:["OSの脆弱性を突いて権限昇格する","ゴミ箱の廃棄書類から情報を盗む（トラッシング）","総当たりでパスワードを解析する","通信を暗号化して盗聴を防ぐ"],a:1,
+  e:"ソーシャルエンジニアリングは人の心理・行動の隙を突く非技術的手口。トラッシング（ゴミ箱あさり）、なりすまし電話、肩越し盗み見等。ア・ウは技術的攻撃。",s:"IPA 情報セキュリティ用語解説（ソーシャルエンジニアリング）"},
+ {cat:"II",topic:"マルウェア",q:"マルウェアの種類に関する説明として最も不適切なものはどれか。",
+  c:["ワームは自己増殖し、単独で他システムへ感染を広げる","トロイの木馬は正規ソフトに偽装して侵入する","ランサムウェアはデータを暗号化し身代金を要求する","スパイウェアは感染端末のファイルを暗号化して使用不能にする"],a:3,
+  e:"ファイルを暗号化して使えなくするのはランサムウェア。スパイウェアは情報を密かに収集・送信するもの。よってエが不適切。",s:"IPA マルウェア（不正プログラム）種別解説"},
+ {cat:"II",topic:"標的型攻撃",q:"標的型攻撃（APT）の特徴として最も適切なものはどれか。",
+  c:["不特定多数に同じウイルスメールを一斉送信する","特定組織を狙い、業務を装ったメール等で長期間潜伏し情報を狙う","Webサイトを改ざんし不特定の閲覧者を感染させる","DNSを汚染して偽サイトへ誘導する"],a:1,
+  e:"標的型攻撃は特定の組織・個人を狙い、巧妙な偽装メールで侵入し長期的に潜伏・情報窃取する。アはばらまき型、ウは水飲み場/改ざん、エはDNSポイズニング。",s:"IPA「標的型サイバー攻撃」解説／情報セキュリティ10大脅威"},
+ {cat:"II",topic:"BYOD/MDM",q:"BYOD（私物端末の業務利用）導入時の対策として最も不適切なものはどれか。",
+  c:["MDMで端末を管理し、紛失時に遠隔ロック・データ消去できるようにする","業務データと私的データを分離（コンテナ化）する","利用ルールを定めず社員の判断に任せる","OS・アプリのアップデートを必須化する"],a:2,
+  e:"BYODは紛失・情報漏えいリスクが高く、ルール策定とMDM等の技術的統制が必須。ルールなしで個人任せは不適切。",s:"総務省「テレワークセキュリティガイドライン」"},
+ {cat:"II",topic:"物理セキュリティ",q:"入退室管理の「アンチパスバック」の説明として最も適切なものはどれか。",
+  c:["共連れ（1人の認証で複数人が入室）を防ぐ仕組み","停電時に自動で施錠する仕組み","一定回数誤認証でアカウントを停止する仕組み","退室記録のない者の再入室を拒否する仕組み"],a:3,
+  e:"アンチパスバックは「入室記録のない者の退室／退室記録のない者の再入室」を認めず、入退の整合をとる仕組み。共連れ防止は別概念（インターロック等）に近い。",s:"入退室管理システムの一般的定義 ※製品・出題者により解釈に幅あり"},
+ {cat:"II",topic:"電源対策",q:"UPS（無停電電源装置）の主な役割として最も適切なものはどれか。",
+  c:["長時間にわたり施設全体へ電力を供給し続ける","停電・瞬断時に一時的に電力を供給し、安全にシャットダウンする時間を確保する","電力消費を抑え省エネを実現する","落雷を完全に防ぐ避雷設備として機能する"],a:1,
+  e:"UPSは停電・瞬電時に短時間電力を供給し、データ保全と正常なシャットダウンを可能にする装置。長時間供給は自家発電機の役割。",s:"JEITA／一般的なUPS（無停電電源装置）の定義"},
+ {cat:"II",topic:"冗長化",q:"システムの障害対策用語の説明として最も不適切なものはどれか。",
+  c:["フェイルセーフは故障時に安全側へ動作させる設計思想である","フォールトトレラントは故障が起きても処理を継続できる設計である","フェイルソフトは故障時に機能を縮退させても稼働を続ける（縮退運転）","フールプルーフは故障部品を多重化して可用性を高めることである"],a:3,
+  e:"フールプルーフは『誤操作をしてもシステムが危険な状態にならない』設計。部品多重化による可用性向上はフォールトトレランス（冗長化）。よってエが不適切。",s:"情報処理技術者試験 シラバス（信頼性設計：フェイルセーフ等の用語）"},
+ {cat:"II",topic:"BCP",q:"事業継続計画（BCP）に関する記述として最も適切なものはどれか。",
+  c:["災害・障害発生時に重要業務を継続・早期復旧するための計画である","個人情報の取扱いルールを定めた社内規程である","ネットワーク機器の購入計画である","新製品の販売戦略をまとめた計画である"],a:0,
+  e:"BCPは災害・事故・サイバー攻撃等の有事に重要業務を中断させない／早期復旧するための計画。目標復旧時間(RTO)等を定める。",s:"内閣府「事業継続ガイドライン」"},
+ {cat:"II",topic:"バックアップ",q:"バックアップ運用に関する記述として最も不適切なものはどれか。",
+  c:["3-2-1ルール（3つの複製・2種の媒体・1つは遠隔）が推奨される","ランサムウェア対策としてオフライン保管（隔離）が有効である","定期的にリストア（復元）テストを行うべきである","バックアップは同一サーバ内の別フォルダに保存すれば十分である"],a:3,
+  e:"同一サーバ内保存はサーバ障害やランサムウェアで一緒に失われる。別媒体・遠隔・オフラインが原則。よってエが不適切。",s:"バックアップ3-2-1ルール（米CISA推奨）／IPA ランサムウェア対策"},
+
+ // ---- 課題III サイバーセキュリティ対策 ----
+ {cat:"III",topic:"認証",q:"多要素認証（MFA）の組み合わせとして「2要素認証」に該当する正しい例はどれか。",
+  c:["パスワード ＋ 秘密の質問の答え","パスワード ＋ スマホに届くワンタイムコード","指紋 ＋ 顔認証","暗証番号 ＋ パスワード"],a:1,
+  e:"認証の3要素は『知識(パスワード)・所持(スマホ/トークン)・生体(指紋等)』。要素の“種類”が異なる組合せが多要素。イは知識＋所持で2要素。ア・エは知識のみ、ウは生体のみで多要素でない。",s:"NIST SP 800-63B（認証の3要素）／IPA 認証技術解説"},
+ {cat:"III",topic:"暗号",q:"公開鍵暗号方式に関する説明として最も適切なものはどれか。",
+  c:["暗号化と復号に同じ鍵を使うため鍵配送が容易である","送信者は受信者の公開鍵で暗号化し、受信者は自分の秘密鍵で復号する","共通鍵暗号より一般に高速で大量データ向きである","鍵を一切交換せずに通信できる"],a:1,
+  e:"公開鍵暗号は公開鍵で暗号化・対応する秘密鍵で復号。鍵配送問題を解決するが処理は低速。アとウは共通鍵暗号の特徴。",s:"IPA 暗号技術解説／CRYPTREC 暗号技術ガイドライン"},
+ {cat:"III",topic:"暗号",q:"共通鍵暗号と公開鍵暗号を組み合わせる「ハイブリッド暗号」の主な利点はどれか。",
+  c:["共通鍵の高速性と、公開鍵による安全な鍵配送を両立できる","鍵が一切不要になる","ハッシュ値だけで通信が完結する","暗号化を二重にして必ず解読不能にする"],a:0,
+  e:"ハイブリッド方式はデータ本体を高速な共通鍵で暗号化し、その共通鍵を公開鍵で安全に相手へ渡す。TLS等で利用。",s:"IPA 暗号技術解説／TLS 1.3（RFC 8446）"},
+ {cat:"III",topic:"電子署名",q:"電子署名（デジタル署名）が保証するものとして最も適切な組み合わせはどれか。",
+  c:["機密性と可用性","完全性（改ざん検知）と真正性（送信者の本人性）・否認防止","可用性と冗長性","匿名性とプライバシー"],a:1,
+  e:"電子署名は送信者の秘密鍵で署名し、改ざん検知（完全性）と本人確認（真正性）・否認防止を実現する。機密性（秘匿）は提供しない。",s:"電子署名法／IPA デジタル署名の仕組み解説"},
+ {cat:"III",topic:"PKI",q:"PKI（公開鍵基盤）における認証局（CA）の役割として最も適切なものはどれか。",
+  c:["公開鍵が本人のものであることを証明する電子証明書を発行する","利用者のパスワードを保管する","通信を高速化するキャッシュサーバである","マルウェアを検知する"],a:0,
+  e:"CAは公開鍵と所有者を結び付けるデジタル証明書を発行・管理し、なりすまし（中間者攻撃）を防ぐ。失効リスト(CRL)も管理。",s:"IPA 公開鍵基盤(PKI)解説／X.509"},
+ {cat:"III",topic:"ハッシュ",q:"ハッシュ関数の性質に関する説明として最も不適切なものはどれか。",
+  c:["同じ入力からは常に同じ固定長の値が得られる","ハッシュ値から元のデータを容易に復元できる","わずかな入力の違いで大きく異なる値になる","改ざん検知やパスワード保存に利用される"],a:1,
+  e:"ハッシュ関数は一方向性を持ち、ハッシュ値から元データを復元するのは困難。よってイが不適切（復号できる暗号化とは異なる）。",s:"IPA／CRYPTREC ハッシュ関数（SHA-2等）解説"},
+ {cat:"III",topic:"攻撃手法",q:"DDoS攻撃の説明として最も適切なものはどれか。",
+  c:["1台の端末から大量要求を送りサービスを停止させる","多数の踏み台端末から一斉に大量要求を送り、対象を過負荷で停止させる","入力欄に不正なSQL文を注入する","通信を盗聴して認証情報を奪う"],a:1,
+  e:"DDoS（分散型サービス妨害）はボットネット等多数の端末から一斉攻撃する。単一端末からはDoS。ウはSQLインジェクション。",s:"JPCERT/CC・IPA DDoS攻撃解説"},
+ {cat:"III",topic:"Web攻撃",q:"SQLインジェクションへの対策として最も適切なものはどれか。",
+  c:["プレースホルダ（パラメータ化クエリ）で入力値を安全に処理する","パスワードを定期的に変更する","通信をVPNで暗号化する","UPSを設置する"],a:0,
+  e:"SQLインジェクションは入力値をSQL文として実行させる攻撃。プレースホルダ／入力値のエスケープ・検証が根本対策。",s:"IPA「安全なウェブサイトの作り方」(SQLインジェクション)"},
+ {cat:"III",topic:"Web攻撃",q:"クロスサイトスクリプティング（XSS）の説明として最も適切なものはどれか。",
+  c:["Webページに不正なスクリプトを埋め込み、閲覧者のブラウザで実行させる","データベースを不正に操作する","DNS応答を偽装する","端末のファイルを暗号化する"],a:0,
+  e:"XSSは脆弱なWebサイトを介して悪意あるスクリプトを閲覧者のブラウザで実行させ、Cookie窃取等を行う。出力時のエスケープが対策。",s:"IPA「安全なウェブサイトの作り方」(クロスサイトスクリプティング)"},
+ {cat:"III",topic:"ランサムウェア",q:"ランサムウェア被害への備え・対応として最も不適切なものはどれか。",
+  c:["オフライン／隔離されたバックアップを保持する","OS・ソフトを最新に保ち脆弱性を塞ぐ","要求された身代金をすぐに支払えば確実に復旧できるので速やかに支払う","不審な添付ファイル・URLを開かない教育を行う"],a:2,
+  e:"身代金を払っても復号される保証はなく、犯罪を助長する。支払いは推奨されない。バックアップ・パッチ・教育が基本対策。",s:"警察庁／IPA ランサムウェア対策（身代金支払いは非推奨）"},
+ {cat:"III",topic:"攻撃手法",q:"「サプライチェーン攻撃」の説明として最も適切なものはどれか。",
+  c:["標的企業を直接攻撃する代わりに、取引先や利用ソフトの提供元など弱い所を経由して侵入する","在庫管理システムを物理的に破壊する","社員のSNSを乗っ取る","電源を落として業務を妨害する"],a:0,
+  e:"サプライチェーン攻撃は委託先・部品・ソフト供給元など防御の弱い経由地を踏み台に本来の標的へ侵入する。2026年追加の重点分野。",s:"IPA「情報セキュリティ10大脅威」（サプライチェーンの弱点を悪用した攻撃）"},
+ {cat:"III",topic:"脆弱性",q:"ゼロデイ攻撃の説明として最も適切なものはどれか。",
+  c:["修正パッチが提供される前の未知の脆弱性を突く攻撃","真夜中（0時）に行われる攻撃","パスワードを総当たりする攻撃","0円で実行できる攻撃"],a:0,
+  e:"ゼロデイ攻撃は脆弱性の修正が提供される“前”に悪用する攻撃。シグネチャ検知が効きにくく、多層防御・振る舞い検知が重要。",s:"IPA／JPCERT/CC 脆弱性対策情報（ゼロデイ攻撃）"},
+ {cat:"III",topic:"ネットワーク防御",q:"IDSとIPSの違いとして最も適切なものはどれか。",
+  c:["IDSは不正を検知して通知し、IPSは検知に加えて遮断まで行う","IDSは暗号化、IPSは復号を行う","IDSは社外向け、IPSは社内専用である","両者に機能差はない"],a:0,
+  e:"IDS(侵入検知)は検知・通知が中心、IPS(侵入防止)は検知して通信遮断まで自動で行う。",s:"IPA ネットワーク侵入検知・防御(IDS/IPS)解説"},
+ {cat:"III",topic:"Webセキュリティ",q:"WAF（Web Application Firewall）の主な目的として最も適切なものはどれか。",
+  c:["WebアプリへのSQLインジェクションやXSS等の攻撃通信を検査・遮断する","社内PCのウイルスを駆除する","電力を安定供給する","メールの文字化けを直す"],a:0,
+  e:"WAFはWebアプリ層(L7)の攻撃を検知・遮断する。通常のFW(L3/L4)では防ぎきれないアプリ攻撃に対応。",s:"IPA「Web Application Firewall(WAF)読本」"},
+ {cat:"III",topic:"クラウド",q:"クラウドサービスにおける「責任共有モデル」の考え方として最も適切なものはどれか。",
+  c:["セキュリティ責任はすべてクラウド事業者が負う","セキュリティ責任はすべて利用者が負う","事業者と利用者が範囲を分担して責任を負う（例：基盤は事業者、データ・設定は利用者）","責任の所在は契約で定めてはならない"],a:2,
+  e:"クラウドは事業者と利用者で責任範囲を分担する。IaaS/PaaS/SaaSで利用者の責任範囲は変わるが、データや権限・設定の管理は利用者側責任となるのが一般的。",s:"NIST SP 500-292／各クラウド事業者の責任共有モデル"},
+ {cat:"III",topic:"API",q:"Web APIのセキュリティ対策として最も不適切なものはどれか。",
+  c:["APIキーやトークンによる認証・認可を行う","通信をTLSで暗号化する","レート制限で過剰なリクエストを防ぐ","APIキーをソースコードに直接書き込み公開リポジトリで共有する"],a:3,
+  e:"APIキーをソースに直書きして公開すると漏えい・不正利用の温床。鍵は秘匿管理（環境変数・シークレット管理）すべき。",s:"OWASP API Security Top 10／IPA セキュアコーディング"},
+ {cat:"III",topic:"IoT",q:"IoT機器のセキュリティ対策として最も不適切なものはどれか。",
+  c:["初期の既定パスワードを必ず変更する","ファームウェアを定期的に更新する","不要な通信ポート・機能を無効化する","管理を簡単にするため全機器を同一の既定パスワードのまま運用する"],a:3,
+  e:"既定パスワードの放置はボットネット（Miraiなど）感染の典型原因。個別の強固なパスワード設定・更新が必須。",s:"総務省・経産省「IoTセキュリティガイドライン」"},
+ {cat:"III",topic:"インシデント対応",q:"インシデント対応（インシデントハンドリング）の一般的な流れとして最も適切な順序はどれか。",
+  c:["復旧 → 検知 → 封じ込め → 根絶 → 事後対応","検知・分析 → 封じ込め → 根絶 → 復旧 → 事後対応（教訓）","封じ込め → 復旧 → 検知 → 根絶","根絶 → 検知 → 復旧 → 封じ込め"],a:1,
+  e:"NIST等の標準では『検知・分析→封じ込め→根絶→復旧→事後対応』。最後に再発防止の教訓化を行う。",s:"NIST SP 800-61（コンピュータセキュリティインシデント対応ガイド）"},
+ {cat:"III",topic:"フォレンジック",q:"デジタルフォレンジックにおいて最も重視される考え方はどれか。",
+  c:["証拠の完全性を保ち、収集から保管までの取扱い経緯（チェーン・オブ・カストディ）を記録する","とにかく早く元データを上書き修正する","ログは不要なので削除する","証拠は複製せず原本だけを操作する"],a:0,
+  e:"フォレンジックでは証拠の同一性・完全性の保持が最重要。原本は保全し複製（イメージ）を解析、取扱い履歴を記録する。",s:"特定NPO デジタル・フォレンジック研究会／NIST SP 800-86"},
+ {cat:"III",topic:"通信の安全",q:"VPNに関する説明として最も適切なものはどれか。",
+  c:["公衆網上に暗号化された仮想的な専用通信路を構築する技術","Webサイトの表示を高速化するキャッシュ技術","ウイルスを検知して隔離する技術","電子署名を発行する技術"],a:0,
+  e:"VPNはインターネット等の公衆網上に暗号化トンネルを作り、安全な通信を実現する。リモートワークで広く利用。",s:"IPA／総務省 VPN（仮想プライベートネットワーク）解説"},
+ {cat:"III",topic:"認証",q:"シングルサインオン（SSO）の説明として最も適切なものはどれか。",
+  c:["1回の認証で複数のサービスを利用できる仕組み","パスワードを毎回別々に入力させる仕組み","2台の端末で同時ログインを禁止する仕組み","ログインを完全に不要にする仕組み"],a:0,
+  e:"SSOは一度の認証で連携した複数サービスを使える。利便性が高い一方、認証情報が破られると影響が大きいためMFA併用が望ましい。",s:"IPA 認証連携(SSO/フェデレーション)解説"},
+ {cat:"III",topic:"攻撃手法",q:"フィッシング攻撃への対策として最も不適切なものはどれか。",
+  c:["メールのリンクは正規サイトをブックマークから開く","送信元やURLのドメインを慎重に確認する","届いたメールのリンクから案内通りにログイン情報を入力する","多要素認証を有効にしておく"],a:2,
+  e:"フィッシングはメール内のリンクで偽サイトに誘導し認証情報を盗む。メールのリンクから安易に入力するのは危険。公式サイトへ自分でアクセスすべき。",s:"フィッシング対策協議会／IPA フィッシング対策"},
+];
+
+/* ========== ロジック ========== */
+let curCat="all", idx=0, answered={}, picked={};
+const $=s=>document.querySelector(s);
+
+function pool(){return curCat==="all"?QUESTIONS:QUESTIONS.filter(q=>q.cat===curCat);}
+const LETTERS=["ア","イ","ウ","エ"];
+
+function render(){
+  const list=pool();
+  $("#totalNum").textContent=list.length;
+  if(idx>=list.length)idx=list.length-1;
+  if(idx<0)idx=0;
+  const q=list[idx];
+  const gkey=QUESTIONS.indexOf(q);
+  const tagCls={I:"tagI",II:"tagII",III:"tagIII",IV:"tagIV"}[q.cat];
+  const catName={I:"課題Ⅰ 総論",II:"課題Ⅱ 脅威・対策",III:"課題Ⅲ サイバー"}[q.cat];
+  let html=`<div class="q">
+    <div class="meta"><span><span class="tag ${tagCls}">${catName}</span> <span style="margin-left:6px">${q.topic}</span></span><span>第 ${idx+1} / ${list.length} 問</span></div>
+    <div class="qtext">${q.q}</div>
+    <div class="choices">`;
+  const isAns=answered[gkey]!==undefined;
+  q.c.forEach((ch,i)=>{
+    let cls="choice";
+    if(isAns){
+      cls+=" disabled";
+      if(i===q.a)cls+=" correct";
+      else if(i===picked[gkey])cls+=" wrong";
+    }
+    html+=`<div class="${cls}" data-i="${i}"><span class="mark">${LETTERS[i]}</span><span>${ch}</span></div>`;
+  });
+  html+=`</div>`;
+  if(isAns){
+    const ok=picked[gkey]===q.a;
+    html+=`<div class="explain show">
+      <div class="verdict ${ok?'ok':'ng'}">${ok?'✓ 正解！':'✗ 不正解（正解：'+LETTERS[q.a]+'）'}</div>
+      <div>${q.e}</div>
+      ${q.s?`<div class="src">📚 根拠：${q.s}</div>`:''}</div>`;
+  }
+  html+=`</div>`;
+  $("#quizArea").innerHTML=html;
+
+  if(!isAns){
+    document.querySelectorAll(".choice").forEach(el=>{
+      el.addEventListener("click",()=>{
+        if(answered[gkey]!==undefined)return;
+        const i=+el.dataset.i;
+        picked[gkey]=i; answered[gkey]=true;
+        render(); updateScore();
+      });
+    });
+  }
+  $("#prevBtn").disabled=idx===0;
+  $("#nextBtn").textContent = idx===list.length-1 ? "結果を見る ⭐" : "次へ →";
+  updateScore();
+}
+
+function updateScore(){
+  const list=pool();
+  let ans=0,correct=0;
+  list.forEach(q=>{const k=QUESTIONS.indexOf(q);if(answered[k]!==undefined){ans++;if(picked[k]===q.a)correct++;}});
+  $("#scoreNum").textContent=correct;
+  $("#answeredNum").textContent=ans;
+  $("#bar").style.width=(list.length?(ans/list.length*100):0)+"%";
+}
+
+function showResult(){
+  const list=pool();
+  let ans=0,correct=0;
+  list.forEach(q=>{const k=QUESTIONS.indexOf(q);if(answered[k]!==undefined){ans++;if(picked[k]===q.a)correct++;}});
+  const pct=ans?Math.round(correct/ans*100):0;
+  $("#resultCard").style.display="block";
+  $("#resultPct").textContent=pct+"%";
+  const pass=pct>=70;
+  const j=$("#resultJudge");
+  j.textContent=pass?"合格ライン到達！（70%以上）":"あと一歩（合格は70%以上）";
+  j.className="judge "+(pass?"pass":"fail");
+  $("#resultMsg").textContent=`${ans}問中 ${correct}問正解。${pass?"この調子で全課題を周回しよう！":"間違えた問題の解説をカタログのキーワードと照らして復習しよう。"}`;
+  $("#resultCard").scrollIntoView({behavior:"smooth"});
+}
+
+$("#nextBtn").onclick=()=>{const list=pool();if(idx>=list.length-1){showResult();}else{idx++;$("#resultCard").style.display="none";render();window.scrollTo({top:0,behavior:"smooth"});}};
+$("#prevBtn").onclick=()=>{if(idx>0){idx--;$("#resultCard").style.display="none";render();window.scrollTo({top:0,behavior:"smooth"});}};
+$("#restartBtn").onclick=()=>{answered={};picked={};idx=0;$("#resultCard").style.display="none";render();window.scrollTo({top:0,behavior:"smooth"});};
+
+document.querySelectorAll("#filters button").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll("#filters button").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    curCat=b.dataset.cat; idx=0; $("#resultCard").style.display="none"; render();
+  };
+});
+
+/* タブ切替 */
+document.querySelectorAll("nav.tabs .tab").forEach(t=>{
+  t.onclick=()=>{
+    document.querySelectorAll("nav.tabs .tab").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+    t.classList.add("active");
+    $("#"+t.dataset.view).classList.add("active");
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+});
+
+render();
+</script>
+</body>
+</html>
