@@ -8,17 +8,17 @@
 <title>情報・サイバーセキュリティ管理士 認定試験 対策サイト</title>
 <style>
 :root{
-  --bg:#0e1726; --panel:#16233a; --panel2:#1d2d49; --line:#2a3c5c;
-  --text:#e8eef7; --muted:#9fb1cc; --accent:#3ea6ff; --accent2:#36d399;
-  --warn:#fbbf24; --danger:#f87171; --ok:#34d399;
-  --catI:#60a5fa; --catII:#f59e0b; --catIII:#a78bfa; --catIV:#34d399;
-  --radius:14px; --shadow:0 6px 24px rgba(0,0,0,.25);
+  --bg:#faf8f3; --panel:#fffefb; --panel2:#f4f0e8; --line:#e6ded0;
+  --text:#33302b; --muted:#8a8175; --accent:#5b7c99; --accent2:#c17a57;
+  --warn:#cf9a3c; --danger:#c0584f; --ok:#5e9e7e;
+  --catI:#4f7596; --catII:#bb7e3a; --catIII:#8b6fa8; --catIV:#5e9e7e;
+  --radius:14px; --shadow:0 4px 18px rgba(90,80,60,.10);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;
-  background:radial-gradient(1200px 600px at 70% -10%,#1b2c4a 0%,var(--bg) 55%);
+  background:radial-gradient(1200px 600px at 70% -10%,#fffdf7 0%,var(--bg) 55%);
   color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased;
 }
 a{color:var(--accent)}
@@ -27,20 +27,20 @@ header.hero{
   text-align:center;padding:46px 18px 26px;
 }
 .badge{display:inline-block;font-size:12px;letter-spacing:.08em;color:var(--accent2);
-  border:1px solid var(--line);border-radius:999px;padding:5px 14px;margin-bottom:14px;background:rgba(54,211,153,.08)}
+  border:1px solid var(--line);border-radius:999px;padding:5px 14px;margin-bottom:14px;background:rgba(193,122,87,.10)}
 h1{font-size:clamp(22px,5vw,34px);margin:6px 0 8px;line-height:1.35}
 .hero p{color:var(--muted);margin:6px 0 0;font-size:15px}
-.revflag{display:inline-block;margin-top:16px;background:linear-gradient(90deg,#1f3a5f,#2b4d7a);
-  border:1px solid var(--accent);border-radius:12px;padding:10px 16px;font-size:13px;color:#dbe9ff}
+.revflag{display:inline-block;margin-top:16px;background:linear-gradient(90deg,#eef3f7,#eaf1f5);
+  border:1px solid #cdd9e3;border-radius:12px;padding:10px 16px;font-size:13px;color:#42596d}
 
 /* tabs */
-nav.tabs{position:sticky;top:0;z-index:20;background:rgba(14,23,38,.86);backdrop-filter:blur(10px);
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(250,248,243,.85);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);display:flex;gap:6px;justify-content:center;padding:10px;flex-wrap:wrap}
 nav.tabs button{
   background:transparent;color:var(--muted);border:1px solid transparent;border-radius:10px;
   padding:9px 16px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
 nav.tabs button:hover{color:var(--text)}
-nav.tabs button.active{color:#fff;background:var(--panel2);border-color:var(--line)}
+nav.tabs button.active{color:#fff;background:var(--accent);border-color:var(--accent)}
 
 .view{display:none;animation:fade .3s ease}
 .view.active{display:block}
@@ -50,7 +50,7 @@ section.card{background:var(--panel);border:1px solid var(--line);border-radius:
   padding:22px 22px;margin:18px 0;box-shadow:var(--shadow)}
 section.card h2{font-size:19px;margin:0 0 14px;display:flex;align-items:center;gap:10px}
 section.card h2 .dot{width:10px;height:10px;border-radius:3px;background:var(--accent)}
-h3{font-size:15px;margin:18px 0 6px;color:#cfe0f7}
+h3{font-size:15px;margin:18px 0 6px;color:#46423b}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
 .stat{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px}
@@ -59,24 +59,24 @@ h3{font-size:15px;margin:18px 0 6px;color:#cfe0f7}
 
 table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
 th,td{border:1px solid var(--line);padding:9px 11px;text-align:left}
-th{background:var(--panel2);color:#cfe0f7;font-weight:600}
+th{background:var(--panel2);color:#46423b;font-weight:600}
 td.center,th.center{text-align:center}
 
 .tag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:999px;font-weight:700}
-.tagI{background:rgba(96,165,250,.16);color:var(--catI);border:1px solid rgba(96,165,250,.4)}
-.tagII{background:rgba(245,158,11,.16);color:var(--catII);border:1px solid rgba(245,158,11,.4)}
-.tagIII{background:rgba(167,139,250,.16);color:var(--catIII);border:1px solid rgba(167,139,250,.4)}
-.tagIV{background:rgba(52,211,153,.16);color:var(--catIV);border:1px solid rgba(52,211,153,.4)}
+.tagI{background:rgba(79,117,150,.13);color:var(--catI);border:1px solid rgba(79,117,150,.35)}
+.tagII{background:rgba(187,126,58,.13);color:var(--catII);border:1px solid rgba(187,126,58,.35)}
+.tagIII{background:rgba(139,111,168,.13);color:var(--catIII);border:1px solid rgba(139,111,168,.35)}
+.tagIV{background:rgba(94,158,126,.13);color:var(--catIV);border:1px solid rgba(94,158,126,.35)}
 
 ul.clean{margin:6px 0;padding-left:20px}
 ul.clean li{margin:3px 0}
 .kw{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
-.kw span{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:12.5px;color:#d7e4f7}
+.kw span{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:12.5px;color:#4a463f}
 
 .note{font-size:13px;color:var(--muted);margin-top:10px}
-.callout{border-left:3px solid var(--accent);background:rgba(62,166,255,.07);padding:10px 14px;border-radius:8px;margin:12px 0;font-size:14px}
+.callout{border-left:3px solid var(--accent);background:rgba(91,124,153,.08);padding:10px 14px;border-radius:8px;margin:12px 0;font-size:14px}
 .acc{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--panel2);overflow:hidden}
-.acc>summary{cursor:pointer;padding:13px 16px;font-weight:700;font-size:15px;list-style:none;display:flex;align-items:center;gap:9px;color:#e8eef7}
+.acc>summary{cursor:pointer;padding:13px 16px;font-weight:700;font-size:15px;list-style:none;display:flex;align-items:center;gap:9px;color:var(--text)}
 .acc>summary::-webkit-details-marker{display:none}
 .acc>summary::before{content:"▶";font-size:10px;color:var(--accent);transition:.2s;flex:0 0 auto}
 .acc[open]>summary::before{transform:rotate(90deg)}
@@ -86,15 +86,15 @@ ul.clean li{margin:3px 0}
 .acc .body h4:first-child{margin-top:0}
 .acc .body ul{margin:4px 0;padding-left:18px}
 .acc .body li{margin:4px 0}
-.acc .body b{color:#cfe0f7}
-.new2026{display:inline-block;font-size:10px;background:rgba(54,211,153,.16);color:var(--accent2);border:1px solid rgba(54,211,153,.4);border-radius:6px;padding:1px 7px;margin-left:6px;font-weight:700}
+.acc .body b{color:#46423b}
+.new2026{display:inline-block;font-size:10px;background:rgba(193,122,87,.14);color:var(--accent2);border:1px solid rgba(193,122,87,.4);border-radius:6px;padding:1px 7px;margin-left:6px;font-weight:700}
 
 /* quiz */
 .quizbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px}
 .filters{display:flex;gap:7px;flex-wrap:wrap}
 .filters button{background:var(--panel2);border:1px solid var(--line);color:var(--muted);
   border-radius:999px;padding:7px 14px;font-size:13px;cursor:pointer;font-weight:600}
-.filters button.active{color:#fff;border-color:var(--accent);background:rgba(62,166,255,.18)}
+.filters button.active{color:#fff;border-color:var(--accent);background:var(--accent)}
 .progress{height:8px;background:var(--panel2);border-radius:999px;overflow:hidden;margin:14px 0}
 .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.3s}
 .scorebox{font-size:13px;color:var(--muted)}
@@ -107,22 +107,22 @@ ul.clean li{margin:3px 0}
 .choice{display:flex;gap:11px;align-items:flex-start;background:var(--panel2);border:1.5px solid var(--line);
   border-radius:11px;padding:12px 14px;cursor:pointer;transition:.12s;font-size:14.5px}
 .choice:hover{border-color:var(--accent)}
-.choice .mark{flex:0 0 24px;height:24px;border-radius:6px;background:#0e1726;border:1px solid var(--line);
+.choice .mark{flex:0 0 24px;height:24px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);
   display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--muted)}
-.choice.correct{border-color:var(--ok);background:rgba(52,211,153,.12)}
-.choice.correct .mark{background:var(--ok);color:#06281c;border-color:var(--ok)}
-.choice.wrong{border-color:var(--danger);background:rgba(248,113,113,.1)}
-.choice.wrong .mark{background:var(--danger);color:#3a0b0b;border-color:var(--danger)}
+.choice.correct{border-color:var(--ok);background:rgba(94,158,126,.13)}
+.choice.correct .mark{background:var(--ok);color:#fff;border-color:var(--ok)}
+.choice.wrong{border-color:var(--danger);background:rgba(192,88,79,.10)}
+.choice.wrong .mark{background:var(--danger);color:#fff;border-color:var(--danger)}
 .choice.disabled{cursor:default}
-.explain{margin-top:13px;border-top:1px dashed var(--line);padding-top:12px;font-size:13.5px;color:#d3e1f5;display:none}
+.explain{margin-top:13px;border-top:1px dashed var(--line);padding-top:12px;font-size:13.5px;color:#4a463f;display:none}
 .explain.show{display:block}
 .explain .verdict{font-weight:700;margin-bottom:5px}
 .explain .verdict.ok{color:var(--ok)}
 .explain .verdict.ng{color:var(--danger)}
-.explain .src{margin-top:9px;font-size:12px;color:#8fb0d8;background:rgba(62,166,255,.08);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.explain .src{margin-top:9px;font-size:12px;color:#5b7c99;background:rgba(91,124,153,.08);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
 
 .controls{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
-.btn{background:var(--accent);color:#062138;border:none;border-radius:10px;padding:11px 20px;font-size:14px;
+.btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-size:14px;
   font-weight:700;cursor:pointer;transition:.15s}
 .btn:hover{filter:brightness(1.08)}
 .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
@@ -135,7 +135,7 @@ ul.clean li{margin:3px 0}
 .result .judge.fail{color:var(--warn)}
 
 footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 18px;border-top:1px solid var(--line);margin-top:30px}
-.disclaimer{font-size:11.5px;color:#7e90ac;max-width:720px;margin:8px auto 0}
+.disclaimer{font-size:11.5px;color:#9a9182;max-width:720px;margin:8px auto 0}
 @media(max-width:560px){
   section.card{padding:18px 15px}
   .q{padding:16px 14px}
@@ -374,6 +374,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 18px;bor
         <button data-cat="I">課題Ⅰ 総論</button>
         <button data-cat="II">課題Ⅱ 脅威・対策</button>
         <button data-cat="III">課題Ⅲ サイバー</button>
+        <button data-cat="IV">課題Ⅳ 一般知識</button>
       </div>
       <div class="scorebox">正解 <b id="scoreNum">0</b> / <span id="answeredNum">0</span>（全 <span id="totalNum">0</span>問）</div>
     </div>
@@ -413,7 +414,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 18px;bor
 
   <section class="card">
     <h2><span class="dot"></span>📚 演習問題の出典・根拠について</h2>
-    <p>収録した40問は、実際の試験問題の流用ではなく、出題範囲に沿って作成した<b>オリジナル問題</b>です。正解・解説の根拠は、各問題の解答後に表示される「📚 根拠」欄のとおり、以下のような<b>権威ある一次情報</b>に基づいています。各根拠で示した機関・規格名を検索すれば、ご自身でも内容を確認できます。</p>
+    <p>収録した<span id="qCount">81</span>問は、実際の試験問題の流用ではなく、出題範囲に沿って作成した<b>オリジナル問題</b>です。正解・解説の根拠は、各問題の解答後に表示される「📚 根拠」欄のとおり、以下のような<b>権威ある一次情報</b>に基づいています。各根拠で示した機関・規格名を検索すれば、ご自身でも内容を確認できます。</p>
     <ul class="clean">
       <li><b>法令</b>：個人情報保護法・不正アクセス禁止法・不正競争防止法・電子署名法（条文は e-Gov 法令検索で確認可）</li>
       <li><b>JIS規格</b>：JIS Q 27000/27001（ISMS）、JIS Q 31000（リスク）、JIS Q 15001（Pマーク）</li>
@@ -579,6 +580,17 @@ const QUESTIONS = [
   c:["定量的手法は損失額や発生確率を金額・数値で評価する","定性的手法は必ず金額で算出する","定量的手法は担当者の主観のみで決める","定性的手法はリスクを一切評価しない"],a:0,
   e:"定量的手法は金額・確率など数値で評価、定性的手法は『大・中・小』等のレベルで相対評価する。両者を併用することも多い。",s:"JIS Q 31000／IPA リスクアセスメント解説"},
 
+ // ---- 課題I 追加（7要素・ポリシー） ----
+ {cat:"I",topic:"真正性",q:"情報セキュリティの追加要素のうち「真正性（Authenticity）」の説明として最も適切なものはどれか。",
+  c:["利用者やデータ・通信相手が本物であり、なりすましでないことを確認できること","情報が改ざんされず正確であること","必要なときに情報を利用できること","行為を後から追跡し誰が行ったか特定できること"],a:0,
+  e:"真正性は利用者・情報・通信相手が『本物（なりすましでない）』である性質で、多要素認証や電子証明書で確保する。改ざんされていない性質は完全性、必要時に使える性質は可用性、行為を追跡できる性質は責任追跡性。",s:"JIS Q 27000（真正性の定義）"},
+ {cat:"I",topic:"否認防止",q:"情報セキュリティの追加要素のうち「否認防止（Non-repudiation）」の説明として最も適切なものはどれか。",
+  c:["ある行為や事象が起きた事実を、後から本人が否定できないようにすること","情報を許可された者だけが閲覧できること","システムが意図通り確実に動作すること","情報を暗号化して秘匿すること"],a:0,
+  e:"否認防止は『やった／送った』という事実を後から否定（言い逃れ）できないようにする性質で、電子署名やログが裏付けになる。許可された者だけが見られるのは機密性、意図通り動作するのは信頼性。",s:"JIS Q 27000（否認防止の定義）"},
+ {cat:"I",topic:"セキュリティポリシー",q:"情報セキュリティポリシーの一般的な3階層を、上位（抽象）から下位（具体）の順に並べたものとして最も適切なものはどれか。",
+  c:["実施手順 → 対策基準 → 基本方針","基本方針 → 対策基準 → 実施手順","対策基準 → 基本方針 → 実施手順","基本方針 → 実施手順 → 対策基準"],a:1,
+  e:"情報セキュリティポリシーは『基本方針（なぜ・何を守るか）→ 対策基準（守るためのルール）→ 実施手順（具体的なやり方）』の順に具体化する3階層で構成するのが一般的。",s:"IPA 情報セキュリティポリシー解説／JIS Q 27001"},
+
  // ---- 課題II 追加 ----
  {cat:"II",topic:"内部不正対策",q:"内部不正を防ぐための管理策として最も適切なものはどれか。",
   c:["全社員に全データへのアクセス権を付与する","業務に必要な最小限の権限だけ与え（最小権限）、重要業務は複数人で分担する（職務分掌）","退職者のアカウントは念のため有効のまま残す","操作ログは取得しない"],a:1,
@@ -595,6 +607,17 @@ const QUESTIONS = [
  {cat:"II",topic:"情報資産管理",q:"情報資産の管理に関する記述として最も適切なものはどれか。",
   c:["資産の重要度に関係なく一律に管理する","情報資産を洗い出して台帳化し、重要度に応じて分類・管理する","紙の書類は情報資産に含めない","管理責任者は定めなくてよい"],a:1,
   e:"情報資産は台帳で洗い出し、機密度・重要度に応じて分類（ラベル付け）し、責任者を定めて管理する。紙・人・設備も資産に含む。",s:"JIS Q 27001（資産の管理・情報の分類）"},
+
+ // ---- 課題II 追加（対策の運用） ----
+ {cat:"II",topic:"ウイルス対策",q:"ウイルス対策ソフトの検知方式に関する説明として最も適切なものはどれか。",
+  c:["パターンマッチング方式は既知マルウェアの特徴（シグネチャ）と照合して検知するため、定義ファイルの更新が欠かせない","パターンマッチング方式は未知のマルウェアも確実に検知できる","ふるまい検知は既知のマルウェアしか検知できない","定義ファイルは一度導入すれば更新は不要である"],a:0,
+  e:"パターンマッチング（シグネチャ）方式は既知マルウェアを定義ファイルと照合して検知するため最新化が必須で、未知・ゼロデイは取りこぼしうる。未知への備えにはふるまい検知（ヒューリスティック）が有効。",s:"IPA ウイルス対策ソフトの仕組み解説"},
+ {cat:"II",topic:"脆弱性管理",q:"ソフトウェアのパッチ管理（脆弱性対応）に関する記述として最も適切なものはどれか。",
+  c:["OSやアプリの修正プログラムを検証のうえ計画的に適用し、既知の脆弱性を塞ぐ","稼働中のシステムには一切更新を当てない","更新の適用は脆弱性とは無関係である","サポート切れ（EOL）のソフトでも更新が提供され続ける"],a:0,
+  e:"パッチ管理は既知の脆弱性を修正プログラムで塞ぐ基本対策で、検証のうえ計画的に適用する。サポート切れ（EOL）製品は更新が提供されず、使い続けること自体がリスクになる。",s:"IPA／JPCERT/CC 脆弱性対策（修正プログラムの適用）"},
+ {cat:"II",topic:"教育・訓練",q:"従業員へのセキュリティ教育・訓練に関する記述として最も不適切なものはどれか。",
+  c:["標的型攻撃メール訓練で、不審メール受信時の正しい対応を体得させる","定期的な教育で最新の手口やルールを周知する","訓練結果は対象者を罰するためだけに使う","役割に応じた内容で繰り返し実施する"],a:2,
+  e:"教育・訓練の目的は気づきと正しい行動の定着。結果を罰するためだけに使うと報告をためらわせ逆効果になる。継続的・役割別の実施が望ましい。よってウが不適切。",s:"IPA「組織における内部不正防止ガイドライン」／標的型攻撃メール訓練"},
 
  // ---- 課題III 追加（2026強化分野 中心） ----
  {cat:"III",topic:"暗号",q:"共通鍵暗号方式の特徴として最も適切なものはどれか。",
@@ -654,6 +677,28 @@ const QUESTIONS = [
  {cat:"III",topic:"攻撃手法",q:"「ボットネット」に関する説明として最も適切なものはどれか。",
   c:["マルウェア感染で乗っ取られた多数の端末が、C&Cサーバの指令で一斉に攻撃などを行う仕組み","正規の業務自動化ツールのことである","検索エンジンの巡回プログラムのことである","ネットワーク機器の一種である"],a:0,
   e:"ボットネットは感染端末（ボット）の集合で、攻撃者がC&C（指令）サーバ経由で操りDDoSや迷惑メール送信等を行う。IoT機器の踏み台化が問題。",s:"JPCERT/CC・IPA ボットネット解説"},
+
+ // ---- 課題III 追加（Web・メール・脆弱性管理） ----
+ {cat:"III",topic:"Web攻撃",q:"ディレクトリトラバーサル（パストラバーサル）攻撃の説明として最も適切なものはどれか。",
+  c:["「../」などでパスを遡り、本来公開していないファイルに不正アクセスする","Webページに不正なスクリプトを埋め込み閲覧者のブラウザで実行させる","入力欄に不正なSQL文を注入してデータベースを操作する","通信を暗号化して盗聴を防ぐ"],a:0,
+  e:"ディレクトリトラバーサルは『../』等で上位階層をたどり、公開範囲外のファイル（設定ファイル等）へアクセスする攻撃。入力値の検証・パスの正規化が対策。スクリプト埋め込みはXSS、SQL注入はSQLインジェクション。",s:"IPA「安全なウェブサイトの作り方」(ディレクトリ・トラバーサル)"},
+ {cat:"III",topic:"メールセキュリティ",q:"なりすましメール対策に用いる「送信ドメイン認証」に該当する技術の組み合わせはどれか。",
+  c:["SPF・DKIM・DMARC","RAID・UPS・MTBF","SSID・WPA2・WEP","RTO・RPO・BCP"],a:0,
+  e:"SPF（送信元サーバの正当性）・DKIM（電子署名で改ざん／なりすまし検知）・DMARC（SPF/DKIMの結果に基づく扱いを宣言）は送信ドメイン認証の代表技術で、なりすましメール対策に用いる。",s:"総務省／JPCERT/CC 送信ドメイン認証（SPF・DKIM・DMARC）"},
+ {cat:"III",topic:"脆弱性管理",q:"脆弱性情報を扱う用語の説明として最も適切なものはどれか。",
+  c:["CVEは暗号アルゴリズムの規格名である","CVEは個別の脆弱性に付ける共通の識別番号、CVSSはその深刻度を点数で評価する指標である","CVSSはマルウェアの一種である","CVEとCVSSはどちらもパスワードの保存方式である"],a:1,
+  e:"CVE（Common Vulnerabilities and Exposures）は脆弱性ごとの共通識別番号、CVSS（Common Vulnerability Scoring System）は深刻度を0.0〜10.0で数値化する指標で、対応の優先度判断に使う。",s:"IPA／FIRST CVSS／MITRE CVE"},
+
+ // ---- 課題IV コンピュータの一般知識 ----
+ {cat:"IV",topic:"ネットワーク機器",q:"ネットワーク機器の説明として最も適切なものはどれか。",
+  c:["ルータは異なるネットワーク同士を接続し、IPアドレスをもとに経路を選択（ルーティング）する","ルータは同一ネットワーク内で信号を増幅するだけの装置である","ハブはIPアドレスを見て経路選択を行う高度な装置である","レイヤ2スイッチはインターネットの出口で暗号化を行う装置である"],a:0,
+  e:"ルータは異なるネットワーク間を接続し、IPアドレスをもとに宛先への経路を決める。レイヤ2スイッチはMACアドレスで同一LAN内のフレームを転送し、ハブは信号を単純に分配する。",s:"情報処理技術者試験 シラバス（ネットワーク機器）"},
+ {cat:"IV",topic:"IPアドレス",q:"IPアドレスに関する記述として最も適切なものはどれか。",
+  c:["プライベートIPアドレスはそのままインターネット上で一意に通信できる","プライベートIPアドレスは組織内（LAN）で使い、インターネット通信時はNATでグローバルIPに変換する","グローバルIPアドレスは組織内専用で外部とは通信できない","IPアドレスは機器を識別しない単なる装飾的な番号である"],a:1,
+  e:"プライベートIPは組織内（LAN）で使うアドレスで、インターネット通信時はNAT/NAPTでグローバルIPへ変換する。グローバルIPはインターネット上で一意に割り当てられる。",s:"情報処理技術者試験 シラバス（IPアドレス・NAT）"},
+ {cat:"IV",topic:"記憶装置・RAID",q:"ディスクの冗長化技術「RAID」に関する記述として最も適切なものはどれか。",
+  c:["RAID1（ミラーリング）は同じデータを2台に書き込み、片方が故障してもデータを保てる","RAID1はデータを1台に圧縮して保存する技術である","RAIDは複数ディスクを使っても可用性は一切向上しない","RAID0（ストライピング）は耐障害性を高めるための冗長構成である"],a:0,
+  e:"RAID1（ミラーリング）は2台に同一データを書き込み、1台が故障しても継続できる（可用性向上）。RAID0（ストライピング）は高速化が目的で冗長性はなく、1台の故障で全データを失う。",s:"情報処理技術者試験 シラバス（RAID）"},
 ];
 
 /* ========== ロジック ========== */
@@ -671,7 +716,7 @@ function render(){
   const q=list[idx];
   const gkey=QUESTIONS.indexOf(q);
   const tagCls={I:"tagI",II:"tagII",III:"tagIII",IV:"tagIV"}[q.cat];
-  const catName={I:"課題Ⅰ 総論",II:"課題Ⅱ 脅威・対策",III:"課題Ⅲ サイバー"}[q.cat];
+  const catName={I:"課題Ⅰ 総論",II:"課題Ⅱ 脅威・対策",III:"課題Ⅲ サイバー",IV:"課題Ⅳ 一般知識"}[q.cat];
   let html=`<div class="q">
     <div class="meta"><span><span class="tag ${tagCls}">${catName}</span> <span style="margin-left:6px">${q.topic}</span></span><span>第 ${idx+1} / ${list.length} 問</span></div>
     <div class="qtext">${q.q}</div>
@@ -760,6 +805,8 @@ document.querySelectorAll("nav.tabs .tab").forEach(t=>{
 });
 
 render();
+/* 出典欄の問題数を実数に同期（再発防止） */
+{const _qc=document.getElementById("qCount");if(_qc)_qc.textContent=QUESTIONS.length;}
 </script>
 </body>
 </html>
