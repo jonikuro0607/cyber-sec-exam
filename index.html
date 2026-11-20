@@ -741,7 +741,9 @@ const DATA_SIG=(()=>{let h=5381;QUESTIONS.forEach(q=>{for(let i=0;i<q.q.length;i
 const isKey=k=>Number.isInteger(k)&&k>=0&&k<QUESTIONS.length;
 const isChoice=(k,i)=>Number.isInteger(i)&&i>=0&&i<QUESTIONS[k].c.length;
 
+let syncing=false;
 function saveState(){
+  if(syncing)return;
   try{localStorage.setItem(STORE_KEY,JSON.stringify({sig:DATA_SIG,curCat,idx,picked,shuffleOn,order,reviewKeys,reviewPicked}));}catch(e){}
 }
 function clearSaved(){try{localStorage.removeItem(STORE_KEY);}catch(e){}}
@@ -908,6 +910,19 @@ $("#shuffleToggle").onchange=e=>{
 if(loadState()&&Object.keys(answered).length)$("#saveNote").textContent="💾 前回の続きから再開しました（自動保存中）";
 $("#shuffleToggle").checked=shuffleOn;
 setActiveFilter();
+
+/* 別タブでの解答を取り込み、古い状態で上書き保存しないようにする（表示中のフィルタと位置はこのタブのまま） */
+window.addEventListener("storage",e=>{
+  if(e.key!==null&&e.key!==STORE_KEY)return;
+  const keepCat=curCat, keepIdx=idx, keepRev=reviewKeys, keepRevPicked=reviewPicked;
+  answered={};picked={};reviewKeys=[];reviewPicked={};shuffleOn=false;order=null;
+  loadState();
+  curCat=keepCat; idx=keepIdx;
+  if(curCat==="wrong"){reviewKeys=keepRev;reviewPicked=keepRevPicked;}
+  $("#shuffleToggle").checked=shuffleOn;
+  syncing=true;
+  try{setActiveFilter(); hideResult(); render();}finally{syncing=false;}
+});
 
 /* タブ切替 */
 document.querySelectorAll("nav.tabs .tab").forEach(t=>{
