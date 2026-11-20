@@ -6,6 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="googlebot" content="noindex, nofollow">
 <title>情報・サイバーセキュリティ管理士 認定試験 対策サイト</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4 8 13v17c0 15 10 26 24 30 14-4 24-15 24-30V13z' fill='%235b7c99'/%3E%3Cpath d='m21 32 8 8 15-16' fill='none' stroke='%23fff' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{
   --bg:#faf8f3; --panel:#fffefb; --panel2:#f4f0e8; --line:#e6ded0;
@@ -770,14 +771,14 @@ function showResult(){
   const list=pool();
   let ans=0,correct=0;
   list.forEach(q=>{const k=QUESTIONS.indexOf(q);if(answered[k]!==undefined){ans++;if(picked[k]===q.a)correct++;}});
-  const pct=ans?Math.round(correct/ans*100):0;
+  const pct=list.length?Math.round(correct/list.length*100):0;
   $("#resultCard").style.display="block";
   $("#resultPct").textContent=pct+"%";
   const pass=pct>=70;
   const j=$("#resultJudge");
   j.textContent=pass?"合格ライン到達！（70%以上）":"あと一歩（合格は70%以上）";
   j.className="judge "+(pass?"pass":"fail");
-  $("#resultMsg").textContent=`${ans}問中 ${correct}問正解。${pass?"この調子で全課題を周回しよう！":"間違えた問題の解説をカタログのキーワードと照らして復習しよう。"}`;
+  $("#resultMsg").textContent=`全${list.length}問中 ${correct}問正解${ans<list.length?`（未回答 ${list.length-ans}問）`:""}。${pass?"この調子で全課題を周回しよう！":"間違えた問題の解説をカタログのキーワードと照らして復習しよう。"}`;
   $("#resultCard").scrollIntoView({behavior:"smooth"});
 }
 
