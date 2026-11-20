@@ -96,6 +96,21 @@ ul.clean li{margin:3px 0}
 .filters button{background:var(--panel2);border:1px solid var(--line);color:var(--muted);
   border-radius:999px;padding:7px 14px;font-size:13px;cursor:pointer;font-weight:600}
 .filters button.active{color:#fff;border-color:var(--accent);background:var(--accent)}
+.filters button.wrongbtn{border-style:dashed}
+.filters button.wrongbtn.active{border-color:var(--danger);background:var(--danger);border-style:solid}
+.filters button .cnt{display:inline-block;min-width:18px;margin-left:4px;padding:0 6px;border-radius:999px;background:rgba(0,0,0,.08);font-size:11.5px;line-height:18px;text-align:center}
+.filters button.active .cnt{background:rgba(255,255,255,.25)}
+.quizopts{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin-top:12px}
+.toggle{position:relative;display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;user-select:none}
+.toggle input{position:absolute;opacity:0;width:1px;height:1px}
+.toggle .sw{position:relative;flex:0 0 38px;width:38px;height:22px;border-radius:999px;background:var(--line);transition:.15s}
+.toggle .sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:.15s}
+.toggle input:checked+.sw{background:var(--accent)}
+.toggle input:checked+.sw::after{left:19px}
+.toggle input:focus-visible+.sw{outline:2px solid var(--accent);outline-offset:2px}
+.savenote{font-size:12px;color:var(--muted)}
+.empty{text-align:center;padding:34px 20px}
+.empty .big{font-size:17px;font-weight:700;margin-bottom:6px}
 .progress{height:8px;background:var(--panel2);border-radius:999px;overflow:hidden;margin:14px 0}
 .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.3s}
 .scorebox{font-size:13px;color:var(--muted)}
@@ -140,6 +155,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 18px;bor
 @media(max-width:560px){
   section.card{padding:18px 15px}
   .q{padding:16px 14px}
+  nav.tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:7px 10px}
+  nav.tabs button{padding:7px 6px;font-size:13px;white-space:nowrap}
+  .filters button{padding:6px 12px}
 }
 </style>
 </head>
@@ -376,8 +394,13 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 18px;bor
         <button data-cat="II">課題Ⅱ 脅威・対策</button>
         <button data-cat="III">課題Ⅲ サイバー</button>
         <button data-cat="IV">課題Ⅳ 一般知識</button>
+        <button class="wrongbtn" data-cat="wrong">間違えた問題だけ<span class="cnt" id="wrongCount">0</span></button>
       </div>
       <div class="scorebox">正解 <b id="scoreNum">0</b> / <span id="answeredNum">0</span>（全 <span id="totalNum">0</span>問）</div>
+    </div>
+    <div class="quizopts">
+      <label class="toggle"><input type="checkbox" id="shuffleToggle"><span class="sw"></span>出題順をシャッフル</label>
+      <span class="savenote" id="saveNote">💾 解答状況はこの端末のブラウザに自動保存されます</span>
     </div>
     <div class="progress"><i id="bar"></i></div>
     <p class="note">本番形式の四択演習です。選択肢をタップすると即座に正誤と解説が表示されます。※ ここに収録した問題は出題範囲に基づく<b>オリジナル問題</b>で、公式試験問題そのものではありません。</p>
@@ -703,38 +726,101 @@ const QUESTIONS = [
 ];
 
 /* ========== ロジック ========== */
+const STORE_KEY="csm-exam-progress-v1";
+const CATS=["all","I","II","III","IV","wrong"];
+const CAT_NAMES={I:"課題Ⅰ 総論",II:"課題Ⅱ 脅威・対策",III:"課題Ⅲ サイバー",IV:"課題Ⅳ 一般知識"};
+/* answered / picked のキーは常に問題データ本体（QUESTIONS）のインデックス */
 let curCat="all", idx=0, answered={}, picked={};
+let shuffleOn=false, order=null;      // シャッフル時の表示順（QUESTIONSのインデックスの並び）
+let reviewKeys=[], reviewPicked={};   // 復習モード：開始時点の誤答リストと、復習中の解答
 const $=s=>document.querySelector(s);
-
-function pool(){return curCat==="all"?QUESTIONS:QUESTIONS.filter(q=>q.cat===curCat);}
 const LETTERS=["ア","イ","ウ","エ"];
+
+/* 問題データが変わったら古い保存データを捨てるための署名 */
+const DATA_SIG=(()=>{let h=5381;QUESTIONS.forEach(q=>{for(let i=0;i<q.q.length;i++)h=((h*33)^q.q.charCodeAt(i))>>>0;});return QUESTIONS.length+":"+h.toString(36);})();
+const isKey=k=>Number.isInteger(k)&&k>=0&&k<QUESTIONS.length;
+const isChoice=(k,i)=>Number.isInteger(i)&&i>=0&&i<QUESTIONS[k].c.length;
+
+function saveState(){
+  try{localStorage.setItem(STORE_KEY,JSON.stringify({sig:DATA_SIG,curCat,idx,picked,shuffleOn,order,reviewKeys,reviewPicked}));}catch(e){}
+}
+function clearSaved(){try{localStorage.removeItem(STORE_KEY);}catch(e){}}
+function loadState(){
+  let d=null;
+  try{d=JSON.parse(localStorage.getItem(STORE_KEY)||"null");}catch(e){}
+  if(!d||typeof d!=="object"||d.sig!==DATA_SIG)return false;
+  const pk=d.picked&&typeof d.picked==="object"?d.picked:{};
+  Object.keys(pk).forEach(s=>{const k=+s,i=pk[s];if(isKey(k)&&isChoice(k,i)){picked[k]=i;answered[k]=true;}});
+  if(Array.isArray(d.order)&&d.order.length===QUESTIONS.length&&d.order.every(isKey)&&new Set(d.order).size===QUESTIONS.length)order=d.order;
+  shuffleOn=d.shuffleOn===true&&!!order;
+  if(Array.isArray(d.reviewKeys))reviewKeys=[...new Set(d.reviewKeys.filter(isKey))];
+  const rp=d.reviewPicked&&typeof d.reviewPicked==="object"?d.reviewPicked:{};
+  Object.keys(rp).forEach(s=>{const k=+s,i=rp[s];if(reviewKeys.includes(k)&&isChoice(k,i))reviewPicked[k]=i;});
+  if(CATS.includes(d.curCat))curCat=d.curCat;
+  if(Number.isInteger(d.idx))idx=d.idx;
+  return true;
+}
+
+function shuffled(){
+  const a=QUESTIONS.map((_,i)=>i);
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function baseOrder(){return shuffleOn&&order?order:QUESTIONS.map((_,i)=>i);}
+function wrongKeys(){return baseOrder().filter(k=>answered[k]!==undefined&&picked[k]!==QUESTIONS[k].a);}
+/* 現在の出題リスト（QUESTIONSのインデックスの配列） */
+function pool(){
+  if(curCat==="wrong")return reviewKeys;
+  const b=baseOrder();
+  return curCat==="all"?b:b.filter(k=>QUESTIONS[k].cat===curCat);
+}
+/* 現在のモードでの解答（未解答なら undefined） */
+function ansOf(k){return curCat==="wrong"?reviewPicked[k]:(answered[k]!==undefined?picked[k]:undefined);}
+function stats(list){
+  let ans=0,correct=0;
+  list.forEach(k=>{const p=ansOf(k);if(p!==undefined){ans++;if(p===QUESTIONS[k].a)correct++;}});
+  return {ans,correct};
+}
+
+function renderEmpty(){
+  const anyAns=Object.keys(answered).length>0;
+  const msg=curCat==="wrong"
+    ?`<div class="big">🎉 現在、間違えた問題はありません</div><p class="note">${anyAns?"解答済みの問題はすべて正解です。":"問題を解いて間違えた問題が、ここに集まります。"}「すべて」や課題別のフィルタで演習を続けましょう。</p>`
+    :`<div class="big">この条件の問題はありません</div>`;
+  $("#quizArea").innerHTML=`<div class="q empty">${msg}</div>`;
+  $("#prevBtn").disabled=true;
+  $("#nextBtn").disabled=true;
+  $("#nextBtn").textContent="次へ →";
+}
 
 function render(){
   const list=pool();
   $("#totalNum").textContent=list.length;
   if(idx>=list.length)idx=list.length-1;
   if(idx<0)idx=0;
-  const q=list[idx];
-  const gkey=QUESTIONS.indexOf(q);
+  if(!list.length){renderEmpty();updateScore();saveState();return;}
+  const gkey=list[idx];
+  const q=QUESTIONS[gkey];
   const tagCls={I:"tagI",II:"tagII",III:"tagIII",IV:"tagIV"}[q.cat];
-  const catName={I:"課題Ⅰ 総論",II:"課題Ⅱ 脅威・対策",III:"課題Ⅲ サイバー",IV:"課題Ⅳ 一般知識"}[q.cat];
+  const catName=CAT_NAMES[q.cat];
+  const mine=ansOf(gkey);
+  const isAns=mine!==undefined;
   let html=`<div class="q">
-    <div class="meta"><span><span class="tag ${tagCls}">${catName}</span> <span style="margin-left:6px">${q.topic}</span></span><span>第 ${idx+1} / ${list.length} 問</span></div>
+    <div class="meta"><span><span class="tag ${tagCls}">${catName}</span> <span style="margin-left:6px">${q.topic}</span></span><span>${curCat==="wrong"?"復習 ":""}第 ${idx+1} / ${list.length} 問</span></div>
     <div class="qtext">${q.q}</div>
     <div class="choices">`;
-  const isAns=answered[gkey]!==undefined;
   q.c.forEach((ch,i)=>{
     let cls="choice";
     if(isAns){
       cls+=" disabled";
       if(i===q.a)cls+=" correct";
-      else if(i===picked[gkey])cls+=" wrong";
+      else if(i===mine)cls+=" wrong";
     }
     html+=`<div class="${cls}" data-i="${i}"><span class="mark">${LETTERS[i]}</span><span>${ch}</span></div>`;
   });
   html+=`</div>`;
   if(isAns){
-    const ok=picked[gkey]===q.a;
+    const ok=mine===q.a;
     html+=`<div class="explain show">
       <div class="verdict ${ok?'ok':'ng'}">${ok?'✓ 正解！':'✗ 不正解（正解：'+LETTERS[q.a]+'）'}</div>
       <div>${q.e}</div>
@@ -746,31 +832,34 @@ function render(){
   if(!isAns){
     document.querySelectorAll(".choice").forEach(el=>{
       el.addEventListener("click",()=>{
-        if(answered[gkey]!==undefined)return;
+        if(ansOf(gkey)!==undefined)return;
         const i=+el.dataset.i;
-        picked[gkey]=i; answered[gkey]=true;
-        render(); updateScore();
+        if(curCat==="wrong")reviewPicked[gkey]=i;
+        picked[gkey]=i; answered[gkey]=true;   // 学習記録は最新の解答で更新
+        render();
       });
     });
   }
   $("#prevBtn").disabled=idx===0;
+  $("#nextBtn").disabled=false;
   $("#nextBtn").textContent = idx===list.length-1 ? "結果を見る ⭐" : "次へ →";
   updateScore();
+  saveState();
 }
 
 function updateScore(){
   const list=pool();
-  let ans=0,correct=0;
-  list.forEach(q=>{const k=QUESTIONS.indexOf(q);if(answered[k]!==undefined){ans++;if(picked[k]===q.a)correct++;}});
+  const {ans,correct}=stats(list);
   $("#scoreNum").textContent=correct;
   $("#answeredNum").textContent=ans;
   $("#bar").style.width=(list.length?(ans/list.length*100):0)+"%";
+  $("#wrongCount").textContent=wrongKeys().length;
 }
 
 function showResult(){
   const list=pool();
-  let ans=0,correct=0;
-  list.forEach(q=>{const k=QUESTIONS.indexOf(q);if(answered[k]!==undefined){ans++;if(picked[k]===q.a)correct++;}});
+  if(!list.length)return;
+  const {ans,correct}=stats(list);
   const pct=list.length?Math.round(correct/list.length*100):0;
   $("#resultCard").style.display="block";
   $("#resultPct").textContent=pct+"%";
@@ -778,21 +867,47 @@ function showResult(){
   const j=$("#resultJudge");
   j.textContent=pass?"合格ライン到達！（70%以上）":"あと一歩（合格は70%以上）";
   j.className="judge "+(pass?"pass":"fail");
-  $("#resultMsg").textContent=`全${list.length}問中 ${correct}問正解${ans<list.length?`（未回答 ${list.length-ans}問）`:""}。${pass?"この調子で全課題を周回しよう！":"間違えた問題の解説をカタログのキーワードと照らして復習しよう。"}`;
+  $("#resultMsg").textContent=`${curCat==="wrong"?"復習 ":"全"}${list.length}問中 ${correct}問正解${ans<list.length?`（未回答 ${list.length-ans}問）`:""}。${pass?"この調子で全課題を周回しよう！":"間違えた問題の解説をカタログのキーワードと照らして復習しよう。"}`;
   $("#resultCard").scrollIntoView({behavior:"smooth"});
 }
 
-$("#nextBtn").onclick=()=>{const list=pool();if(idx>=list.length-1){showResult();}else{idx++;$("#resultCard").style.display="none";render();window.scrollTo({top:0,behavior:"smooth"});}};
-$("#prevBtn").onclick=()=>{if(idx>0){idx--;$("#resultCard").style.display="none";render();window.scrollTo({top:0,behavior:"smooth"});}};
-$("#restartBtn").onclick=()=>{answered={};picked={};idx=0;$("#resultCard").style.display="none";render();window.scrollTo({top:0,behavior:"smooth"});};
+function setActiveFilter(){
+  document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("active",x.dataset.cat===curCat));
+}
+function hideResult(){$("#resultCard").style.display="none";}
+
+$("#nextBtn").onclick=()=>{const list=pool();if(!list.length)return;if(idx>=list.length-1){showResult();}else{idx++;hideResult();render();window.scrollTo({top:0,behavior:"smooth"});}};
+$("#prevBtn").onclick=()=>{if(idx>0){idx--;hideResult();render();window.scrollTo({top:0,behavior:"smooth"});}};
+$("#restartBtn").onclick=()=>{
+  clearSaved();
+  answered={};picked={};reviewKeys=[];reviewPicked={};idx=0;
+  if(shuffleOn)order=shuffled();
+  if(curCat==="wrong"){curCat="all";setActiveFilter();}
+  $("#saveNote").textContent="💾 解答状況はこの端末のブラウザに自動保存されます";
+  hideResult();render();window.scrollTo({top:0,behavior:"smooth"});
+};
 
 document.querySelectorAll("#filters button").forEach(b=>{
   b.onclick=()=>{
-    document.querySelectorAll("#filters button").forEach(x=>x.classList.remove("active"));
-    b.classList.add("active");
-    curCat=b.dataset.cat; idx=0; $("#resultCard").style.display="none"; render();
+    curCat=b.dataset.cat; idx=0;
+    if(curCat==="wrong"){reviewKeys=wrongKeys();reviewPicked={};}
+    setActiveFilter(); hideResult(); render();
   };
 });
+
+$("#shuffleToggle").onchange=e=>{
+  const list=pool(), curKey=list[idx];
+  shuffleOn=e.target.checked;
+  if(shuffleOn)order=shuffled();
+  if(curCat==="wrong")reviewKeys=baseOrder().filter(k=>reviewKeys.includes(k));
+  const pos=pool().indexOf(curKey);
+  idx=pos>=0?pos:0;
+  hideResult(); render();
+};
+
+if(loadState()&&Object.keys(answered).length)$("#saveNote").textContent="💾 前回の続きから再開しました（自動保存中）";
+$("#shuffleToggle").checked=shuffleOn;
+setActiveFilter();
 
 /* タブ切替 */
 document.querySelectorAll("nav.tabs .tab").forEach(t=>{
