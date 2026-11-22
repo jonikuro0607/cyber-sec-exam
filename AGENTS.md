@@ -47,7 +47,7 @@
 
 | 目的 | コマンド（リポジトリ直下で実行） | 期待結果 |
 | --- | --- | --- |
-| ローカル起動 | `python3 -m http.server 8000` | `http://localhost:8000/` でサイトが開く |
+| ローカル起動 | `python3 -m http.server 8000 --bind 127.0.0.1` | `http://localhost:8000/` でサイトが開く（自分のPCからだけ見える。`--bind 127.0.0.1` を外すと同じネットワークの他の端末から作業コピー全体が見えるので外さない） |
 | 配信確認 | `curl -s -o /dev/null -w '%{http_code}\n' http://localhost:8000/` | `200` |
 | JS構文チェック（Node.js が必要） | `node -e 'const s=require("fs").readFileSync("index.html","utf8");const m=[...s.matchAll(/<script>([\s\S]*?)<\/script>/g)];m.forEach(x=>new Function(x[1]));console.log("OK: "+m.length+" script block(s)")'` | `OK: 1 script block(s)` |
 
